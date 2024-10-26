@@ -10,7 +10,7 @@ import {
 } from '../../../public/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
+import clsx from '../../../public/clsx';
 
 const userRole = 'Administrador';
 // Map of links to display in the side navigation.
