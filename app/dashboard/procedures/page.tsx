@@ -6,7 +6,15 @@ import {
     ArrowRightIcon
 } from '../../../public/outline';
 
-async function getProcedures() {
+interface Procedure {
+    peopleId: number;
+    names: string;
+    lnames: string;
+    requests: string;
+}
+
+
+async function getProcedures(): Promise<Procedure[]> {
     try {
         const res = await fetch('https://www.simytsoacha.somee.com/api/People', {
             method: 'GET',
@@ -27,10 +35,10 @@ async function getProcedures() {
         }
 
         const data = JSON.parse(text);
-        return data;
+        return data as Procedure[];
     } catch (error) {
         console.error('Error fetching procedures:', error);
-        return []; // Devuelve un array vacío en caso de error
+        return [];
     }
 }
 
@@ -47,11 +55,9 @@ export default async function Procedures() {
             </div>
             {/* Encabezado */}
             <div className="bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col justify-center items-center text-center">
-                <h1 className="text-4xl font-bold">¡Procedures! </h1>
+                <h1 className="text-4xl font-bold">Procedures </h1>
                 <p className="mt-2 text-lg text-gray-600">
-                    In this space, you will be able to view the history
-                    of applications, as well as start the process of
-                    issuing your traffic licence or driver's licence.
+                    In this space, you will be able to view the history of applications, as well as start the process of issuing your traffic licence or drivers licence.
                 </p>
             </div>
 
@@ -67,7 +73,7 @@ export default async function Procedures() {
                             </tr>
                         </thead>
                         <tbody>
-                            {procedures.map((procedure: any) => (
+                            {procedures.map((procedure: Procedure) => (
                                 <tr key={procedure.peopleId} className="bg-gray-100">
                                     <td className="px-4 py-2">{procedure.names}</td>
                                     <td className="px-4 py-2">{procedure.lnames}</td>
@@ -110,7 +116,7 @@ export default async function Procedures() {
                             <h2 className="text-xl font-bold ml-4">Issue a Driving Licence</h2>
                         </div>
                         <p className="mt-2 text-gray-600">
-                            Initiate application for the issuance of a driver's licence
+                            Initiate application for the issuance of a drivers licence
                         </p>
                     </div>
                     <Link
