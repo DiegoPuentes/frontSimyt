@@ -7,7 +7,7 @@ import {
     PlayIcon,
     UserGroupIcon,
     ArrowRightIcon
-} from '@/node_modules/outline';
+} from '../../../public/outline';
 
 async function getProcedures() {
     try {

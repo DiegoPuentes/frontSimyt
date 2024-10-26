@@ -2,7 +2,7 @@ import {
     IdentificationIcon,
     CalendarDaysIcon,
     PhoneIcon
-} from 'outline'
+} from '../../public/outline'
 
 export default function SignPage() {
     return (

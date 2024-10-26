@@ -9,8 +9,8 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
   UserIcon
-} from '../../node_modules/outline';
-import { ArrowRightIcon } from '../../node_modules/outline';
+} from '../../public/outline';
+import { ArrowRightIcon } from '../../public/outline';
 import { Button } from '../ui/button';
 
 export default function LoginForm() {

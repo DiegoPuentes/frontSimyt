@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import SimytLogo from '../../ui/simyt-logo';
-import { PowerIcon } from '../../../node_modules/outline';
+import { PowerIcon } from '../../../public/outline';
 
 export default function SideNav() {
   return (

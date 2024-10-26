@@ -1,4 +1,4 @@
-import { DocumentIcon } from '../../node_modules/outline';
+import { DocumentIcon } from '../../public/outline';
 import { lusitana } from './fonts';
 
 export default function AcmeLogo() {

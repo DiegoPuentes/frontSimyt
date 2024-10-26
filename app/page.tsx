@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRightIcon } from "../node_modules/outline"
+import { ArrowRightIcon } from "../public/outline"
 import Link from "next/link";
 import SimytLogo from "./ui/simyt-logo";
 

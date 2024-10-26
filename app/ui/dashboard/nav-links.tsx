@@ -7,7 +7,7 @@ import {
   DocumentMagnifyingGlassIcon,
   PlayIcon,
   ArchiveBoxIcon
-} from '../../../node_modules/outline';
+} from '../../../public/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
