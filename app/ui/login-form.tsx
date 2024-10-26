@@ -103,6 +103,9 @@ export default function LoginForm() {
         <button type="submit" className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
           Sign in
         </button>
+        <button type="submit" className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
+          Sign in 2
+        </button>
         {errorMessage && <p className="text-red-500 text-base mt-2">{errorMessage}</p>}
       </div>
     </form>
