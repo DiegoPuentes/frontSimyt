@@ -9,11 +9,12 @@ import {
 } from '../../../public/outline';
 
 export default function Home() {
+
     return (
         <div className="p-6 bg-gray-50">
             {/* Encabezado */}
             <div className="bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col justify-center items-center text-center">
-                <h1 className="text-4xl font-bold">¡Hi! </h1>
+                <h1 className="text-4xl font-bold">¡Hi!</h1>
                 <p className="mt-2 text-lg text-gray-600">
                     Here you will be able to manage and follow up on the
                     transit and transport procedures and services that you

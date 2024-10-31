@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { lusitana } from '@/app/ui/fonts';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   KeyIcon,
-  UserIcon
+  UserIcon,
+  ExclamationCircleIcon,
 } from '../../public/outline';
 
 
@@ -20,24 +22,23 @@ export default function LoginForm() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://localhost:7231/api/People/Login', {
+
+      const formData = new FormData();
+      formData.append('userName', userName);
+      formData.append('pass', password);
+
+      const response = await fetch('https://www.simytsoacha.somee.com/api/People/Login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: new URLSearchParams({
-          userName: userName,
-          pass: password,
-        }),
+        body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
         // Guardar el token o el tipo de usuario en localStorage o cookies para usar en las siguientes solicitudes
         localStorage.setItem('token', data.Token);
-        console.log(response.status)
+        localStorage.setItem('Name', data.Name);
         // Redirigir a una página protegida si el login es exitoso
-        router.push('/dashboard');
+        router.push('/dashboard/home');
       } else if (response.status === 404) {
         setErrorMessage('Incorrect username or password.');
       } else if (response.status === 400) {
@@ -100,13 +101,19 @@ export default function LoginForm() {
         <button type="submit" className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
           Log in
         </button>
-        <button type="submit" className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
-          Sign in
-        </button>
-        <button type="submit" className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
-          Sign in 2
-        </button>
-        {errorMessage && <p className="text-red-500 text-base mt-2">{errorMessage}</p>}
+        <Link href="/sign">
+          <button className="mt-4 w-full bg-blue-500 text-white text-base py-2 rounded-md">
+            Sign up
+          </button>
+        </Link>
+        {errorMessage && (
+          <>
+            <div className="flex items-center text-red-500">
+              <ExclamationCircleIcon className="h-5 w-5 mr-2" />
+              <p className="text-base">{errorMessage}</p>
+            </div>
+          </>
+        )}
       </div>
     </form>
   );
