@@ -27,7 +27,7 @@ export default function LoginForm() {
       formData.append('userName', userName);
       formData.append('pass', password);
 
-      const response = await fetch('https://www.simytsoacha.somee.com/api/People/Login', {
+      const response = await fetch('https://localhost:7231/api/People/Login', {
         method: 'POST',
         body: formData,
       });

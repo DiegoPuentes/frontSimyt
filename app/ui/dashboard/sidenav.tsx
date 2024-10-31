@@ -11,7 +11,7 @@ export default function SideNav() {
 
   const logout = async () => {
     try {
-      const response = await fetch('https://localhost:7231/api/People/Logout', {
+      const response = await fetch('https://www.simytsoacha.somee.com/api/People/Logout', {
         method: 'POST',
         credentials: 'include', // Incluye las cookies en la solicitud
       });
