@@ -11,38 +11,50 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from '../../../public/clsx';
-
-const userRole = 'Administrador';
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-const links = [
-  { name: 'Home', href: '/dashboard/home', icon: HomeIcon, roles: ['Administrador'] },
-  { 
-    name: 'Dashboard', 
-    href: '/dashboard', 
-    icon: ArchiveBoxIcon, 
-    roles: ['Administrador'] 
-},
-  { 
-    name: 'Procedures', 
-    href: '/dashboard/procedures', 
-    icon: DocumentMagnifyingGlassIcon, 
-    roles: ['Administrador', 'Usuario']
-},
-  { 
-    name: 'My Requests', 
-    href: '/dashboard/requests', 
-    icon: DocumentDuplicateIcon, 
-    roles: ['Administrador', 'Usuario']
-},
-  { name: 'Game', href: '/dashboard/game', icon: PlayIcon, roles: ['Administrador', 'Usuario'] },
-  { name: 'Help', href: '/dashboard/help', icon: UserGroupIcon, roles: ['Administrador', 'Usuario'] }
-];
-
-const filteredLinks = links.filter(link => link.roles.includes(userRole));
-
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 export default function NavLinks() {
+  const [userRole, setUserRole] = useState(''); 
+
+  useEffect(() => {
+    var cookieType = Cookies.get('Type');
+
+    if (Number(cookieType) === 1) {
+      setUserRole('Administrador');
+    } else if(Number(cookieType) === 2){
+      setUserRole('Usuario'); 
+    }else{
+      setUserRole('Invitado'); 
+    }
+  }, []);
+
+  const links = [
+    { name: 'Home', href: '/dashboard/home', icon: HomeIcon, roles: ['Administrador'] },
+    { 
+      name: 'Dashboard', 
+      href: '/dashboard', 
+      icon: ArchiveBoxIcon, 
+      roles: ['Administrador'] 
+    },
+    { 
+      name: 'Procedures', 
+      href: '/dashboard/procedures', 
+      icon: DocumentMagnifyingGlassIcon, 
+      roles: ['Administrador', 'Usuario']
+    },
+    { 
+      name: 'My Fines', 
+      href: '/dashboard/fines', 
+      icon: DocumentDuplicateIcon, 
+      roles: ['Administrador', 'Usuario']
+    },
+    { name: 'Game', href: '/dashboard/game', icon: PlayIcon, roles: ['Administrador', 'Usuario'] },
+    { name: 'Help', href: '/dashboard/help', icon: UserGroupIcon, roles: ['Administrador', 'Usuario', 'Invitado'] }
+  ];
+
+  const filteredLinks = links.filter(link => link.roles.includes(userRole));
+
   const pathname = usePathname();
   return (
     <>

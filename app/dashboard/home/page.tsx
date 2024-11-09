@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import {
     DocumentDuplicateIcon,
     DocumentMagnifyingGlassIcon,
@@ -7,14 +8,22 @@ import {
     UserGroupIcon,
     ArrowRightIcon
 } from '../../../public/outline';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const cookieName = Cookies.get('Name');
+        setName(cookieName || 'Guest');
+    }, []);
 
     return (
         <div className="p-6 bg-gray-50">
             {/* Encabezado */}
             <div className="bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col justify-center items-center text-center">
-                <h1 className="text-4xl font-bold">¡Hi!</h1>
+                <h1 className="text-4xl font-bold">¡Hi, {name}!</h1>
                 <p className="mt-2 text-lg text-gray-600">
                     Here you will be able to manage and follow up on the
                     transit and transport procedures and services that you
@@ -56,14 +65,14 @@ export default function Home() {
                     <div>
                         <div className="flex items-center">
                             <DocumentDuplicateIcon className="w-15 md:w-20" />
-                            <h2 className="text-xl font-bold ml-4">My Requests</h2>
+                            <h2 className="text-xl font-bold ml-4">My Fines</h2>
                         </div>
                         <p className="mt-2 text-gray-600">
-                            Check the status of applications you have made.
+                            Check your fines here.
                         </p>
                     </div>
                     <Link
-                        href="/dashboard/requests"
+                        href="/dashboard/fines"
                         className="flex h-10 items-center justify-center rounded-lg bg-blue-500 
                             px-4 text-base font-medium text-white transition-colors 
                             hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 

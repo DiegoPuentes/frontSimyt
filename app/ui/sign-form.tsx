@@ -32,6 +32,10 @@ export default function SignForm() {
     const [selectedDocumentType, setSelectedDocumentType] = useState('');
     const [selectedSex, setSelectedSex] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    const [acceptsPolicy, setAcceptsPolicy] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const router = useRouter();
 
     useEffect(() => {
@@ -55,6 +59,35 @@ export default function SignForm() {
         fetchSex();
     },
         []);
+
+    function validateName(name: string) {
+        const regex = /^[a-zA-Z ]+$/;
+        return regex.test(name);
+    }
+
+    function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const newName = event.target.value;
+        if (validateName(newName)) {
+            setName(newName);
+            setErrorMessage("");
+            return;
+        } else {
+            setErrorMessage("The Name field must be a valid name, consisting of letters only.");
+            return;
+        }
+    }
+
+    function handleLnameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const newLname = event.target.value;
+        if (validateName(newLname)) {
+            setLnames(newLname);
+            setErrorMessage("")
+            return;
+        } else {
+            setErrorMessage("The Name field must be a valid name, consisting of letters only.");
+            return;
+        }
+    }
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setpasscodes(e.target.value);
@@ -100,6 +133,16 @@ export default function SignForm() {
             return;
         }
 
+        if (!selectedDocumentType || !selectedSex) {
+            setErrorMessage("Fill in all the fields, it is obligatory");
+            return;
+        }
+
+        if (!acceptsPolicy) {
+            setErrorMessage("Please accept the Data Policy to proceed.");
+            return;
+        }
+
         const data = {
             name: name,
             lnames: lnames,
@@ -113,8 +156,10 @@ export default function SignForm() {
             isdeleted: false,
         };
 
+        console.log(data);
+
         try {
-            const response = await fetch('https://localhost:7231/api/People', {
+            const response = await fetch('https://www.simytsoacha.somee.com/api/People', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,9 +175,9 @@ export default function SignForm() {
             }
         } catch (error) {
             setErrorMessage('Error connecting to server: ' + error);
+
         }
     };
-
 
     return (
         <form className="space-y-3" onSubmit={handleSubmit}>
@@ -149,7 +194,7 @@ export default function SignForm() {
                             placeholder="Enter your name"
                             required
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={handleNameChange}
                             className="peer block w-full rounded-md border border-gray-200 
                             py-[9px] pl-10 text-base outline-2 placeholder:text-gray-500"
                         />
@@ -168,7 +213,7 @@ export default function SignForm() {
                             placeholder="Enter your last names"
                             required
                             value={lnames}
-                            onChange={(e) => setLnames(e.target.value)}
+                            onChange={handleLnameChange}
                             className="mpeer block w-full rounded-md border border-gray-200 
                             py-[9px] pl-10 text-base outline-2 placeholder:text-gray-500"
                         />
@@ -210,6 +255,8 @@ export default function SignForm() {
                             placeholder="Enter your document number"
                             required
                             value={nDocument}
+                            minLength={10}
+                            maxLength={10}
                             onChange={(e) => setnDocument(e.target.value)}
                             className="mpeer block w-full rounded-md border border-gray-200 
                             py-[9px] pl-10 text-base outline-2 placeholder:text-gray-500"
@@ -333,6 +380,19 @@ export default function SignForm() {
                         </button>
                     </div>
                 </div>
+                <div className="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="acceptsPolicy"
+                        required
+                        checked={acceptsPolicy}
+                        onChange={(e) => setAcceptsPolicy(e.target.checked)}
+                        className="mr-2"
+                    />
+                    <label htmlFor="acceptsPolicy" className="text-base text-gray-900">
+                        I accept the <button type="button" onClick={() => setIsModalOpen(true)} className="text-blue-500 underline">Data Policy</button>
+                    </label>
+                </div>
                 <button type="submit" className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md">
                     Sign up
                 </button>
@@ -348,6 +408,33 @@ export default function SignForm() {
                     </div>
                 )}
             </div>
+            {/* Modal de Tratamiento de Datos */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                        <h2 className="text-xl font-bold mb-4">Data Policy</h2>
+                        <p className="text-sm text-gray-700">
+                        This Personal Data Processing Policy sets out how data collected by the SimytSoacha application is used and protected. 
+                        and protect the data collected by the SimytSoacha application. 
+                        The data collected includes basic information, identification data, 
+                        contact and security information. This data is used to create 
+                        create user accounts, provide services, personalise the experience and comply with legal 
+                        comply with legal obligations. Data processing is based on user consent and 
+                        consent of the user and compliance with laws. Security measures such as encryption, access control 
+                        security measures such as encryption, access control and monitoring are implemented to protect data. 
+                        are implemented to protect data. Users have rights to access their data,
+                        as well as to lodge complaints. 
+                        Data may be transferred to servers in other countries with appropriate security measures. 
+                        appropriate security measures. The Policy may be changed, and users will be notified of any changes 
+                        will be notified to users. For enquiries, please contact 
+                        contactenos@alcaldiasoacha.gov.co
+                        </p>
+                        <button onClick={() => setIsModalOpen(false)} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </form>
     );
 }

@@ -1,3 +1,5 @@
+import DashboardPage from "@/app/ui/dashboard/dash"
+
 export default function page(){
-    return(<p>Dashboard Page</p>);
+    return(<DashboardPage/>);
 }

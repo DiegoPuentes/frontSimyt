@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { lusitana } from '@/app/ui/fonts';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import {
   KeyIcon,
   UserIcon,
@@ -34,11 +35,13 @@ export default function LoginForm() {
 
       if (response.ok) {
         const data = await response.json();
-        // Guardar el token o el tipo de usuario en localStorage o cookies para usar en las siguientes solicitudes
-        localStorage.setItem('token', data.Token);
-        localStorage.setItem('Name', data.Name);
-        // Redirigir a una página protegida si el login es exitoso
+
+        Cookies.set('Token', data.token);
+        Cookies.set('Name', data.name);
+        Cookies.set('Type', data.userTypeId);
+        Cookies.set('TypeId', data.peopleId);
         router.push('/dashboard/home');
+
       } else if (response.status === 404) {
         setErrorMessage('Incorrect username or password.');
       } else if (response.status === 400) {

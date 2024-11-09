@@ -5,6 +5,7 @@ import NavLinks from '@/app/ui/dashboard/nav-links';
 import SimytLogo from '../../ui/simyt-logo';
 import { PowerIcon } from '../../../public/outline';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function SideNav() {
   const router = useRouter();
@@ -13,10 +14,13 @@ export default function SideNav() {
     try {
       const response = await fetch('https://www.simytsoacha.somee.com/api/People/Logout', {
         method: 'POST',
-        credentials: 'include', // Incluye las cookies en la solicitud
+        credentials: 'include',
       });
       if (response.ok) {
-        localStorage.removeItem('token');
+        Cookies.remove('Token');
+        Cookies.remove('Name');
+        Cookies.remove('Type');
+        Cookies.remove('TypeId');
         router.push('/');
       } else {
         console.error('Error logging out');
