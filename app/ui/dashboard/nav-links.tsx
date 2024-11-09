@@ -18,7 +18,7 @@ export default function NavLinks() {
   const [userRole, setUserRole] = useState(''); 
 
   useEffect(() => {
-    var cookieType = Cookies.get('Type');
+    const cookieType = Cookies.get('Type');
 
     if (Number(cookieType) === 1) {
       setUserRole('Administrador');

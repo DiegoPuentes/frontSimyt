@@ -2,7 +2,7 @@
 import { DateTime } from "next-auth/providers/kakao";
 import { useEffect, useState } from "react";
 
-export default function dash() {
+export default function Dash() {
     interface Driver {
         id: number,
         nlicense: string,

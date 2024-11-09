@@ -67,6 +67,22 @@ interface Driver {
     }
 }
 
+interface Procedure {
+    procedureId: number,
+    description: string,
+    stateId: number,
+    states:{
+        statesName: string
+    }
+    requestId: number,
+    requests:{
+        people:{
+            peopleId: number
+        }
+    }
+    isdeleted: boolean,
+}
+
 export default function DrivePage() {
     const [nLicense, setnLicense] = useState('');
 
@@ -224,7 +240,7 @@ export default function DrivePage() {
                     if (existingProcedureCheck.ok) {
                         const existingProcedure = await existingProcedureCheck.json();
 
-                        if (!existingProcedure.some((procedure: any) => procedure.description === "Solicitud expedición licencia de conducción")) {
+                        if (!existingProcedure.some((procedure: Procedure) => procedure.description === "Solicitud expedición licencia de conducción")) {
                             const dataProcedure = {
                                 description: "Solicitud expedición licencia de conducción",
                                 stateId: 1,
@@ -381,7 +397,7 @@ export default function DrivePage() {
                 if (response.ok) {
                     const procedures = await response.json();
 
-                    const existingProcedure = procedures.find((procedure: any) => 
+                    const existingProcedure = procedures.find((procedure: Procedure) => 
                         procedure.description === "Solicitud expedición licencia de conducción" &&
                         procedure.requests.people.peopleId === PeopleId
                     );
