@@ -179,7 +179,7 @@ export default function Dash() {
                                     <td className="px-4 py-2 text-center">{traffics.services.tservicesName}</td>
                                     <td className="px-4 py-2 text-center">{traffics.vehicles.tvehicle}</td>
                                     <td className="px-4 py-2 text-center">{traffics.procedures.description}</td>
-                                    {/*<td className="px-4 py-2 text-center">{traffics.procedures.requests.people.names}</td>*/}
+                                    <td className="px-4 py-2 text-center">{traffics.procedures.requests.people.names}</td>
                                 </tr>
                             ))}
                         </tbody>
