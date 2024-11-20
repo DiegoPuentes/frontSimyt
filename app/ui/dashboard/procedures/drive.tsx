@@ -71,12 +71,12 @@ interface Procedure {
     procedureId: number,
     description: string,
     stateId: number,
-    states:{
+    states: {
         statesName: string
     }
     requestId: number,
-    requests:{
-        people:{
+    requests: {
+        people: {
             peopleId: number
         }
     }
@@ -393,25 +393,25 @@ export default function DrivePage() {
                         'Content-Type': 'application/json',
                     },
                 });
-        
+
                 if (response.ok) {
                     const procedures = await response.json();
 
-                    const existingProcedure = procedures.find((procedure: Procedure) => 
+                    const existingProcedure = procedures.find((procedure: Procedure) =>
                         procedure.description === "Solicitud expedición licencia de conducción" &&
                         procedure.requests.people.peopleId === PeopleId
                     );
-        
+
                     if (existingProcedure) {
                         const id = existingProcedure.procedureId;
-        
+
                         const deleteProcedure = await fetch(`https://www.simytsoacha.somee.com/api/Procedure/${id}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                         });
-        
+
                         if (deleteProcedure.ok) {
                             console.log("Procedure eliminado correctamente");
                         } else {
@@ -482,7 +482,11 @@ export default function DrivePage() {
                                                     Modify
                                                 </button>
                                                 <button
-                                                    onClick={(e) => handleDelete(e, drivers.id)}
+                                                    onClick={(e) => {
+                                                        if (window.confirm("Are you sure you want to remove this element?")) {
+                                                            handleDelete(e, drivers.id);
+                                                        }
+                                                    }}
                                                     className="flex h-10 items-center rounded-lg bg-blue-500 
                                                                 px-4 text-sm font-medium text-white transition-colors 
                                                                 hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 
@@ -491,6 +495,7 @@ export default function DrivePage() {
                                                 >
                                                     Delete
                                                 </button>
+
                                             </div>
                                         </td>
                                     </tr>

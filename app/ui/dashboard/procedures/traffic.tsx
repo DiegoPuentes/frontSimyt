@@ -399,7 +399,11 @@ export default function TrafficPage() {
                                                     Modify
                                                 </button>
                                                 <button
-                                                    onClick={(e) => handleDelete(e, traffics.tlicensesId)}
+                                                    onClick={(e) => {
+                                                        if (window.confirm("Are you sure you want to remove this element?")) {
+                                                            handleDelete(e, traffics.tlicensesId);
+                                                        }
+                                                    }}
                                                     className="flex h-10 items-center rounded-lg bg-blue-500 
                                                                 px-4 text-sm font-medium text-white transition-colors 
                                                                 hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 
