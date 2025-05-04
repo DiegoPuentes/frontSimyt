@@ -281,7 +281,7 @@ export default function DrivePage() {
                                         isdeleted: false
                                     };
 
-                                    const iDriver = await fetch('https://www.simytsoacha.somee.com/api/Driver', {
+                                    const iDriver = await fetch('https://simytsoacha.somee.com/api/Driver', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',
@@ -290,7 +290,8 @@ export default function DrivePage() {
                                     });
 
                                     if (!iDriver.ok) {
-                                        console.log("Error al crear el driver");
+                                        const errorText = await iDriver.text();
+                                        console.error("Error al crear el driver:", errorText);
                                     } else {
                                         alert("¡Registration sent successfully, we will contact you soon so that you can pay!");
                                         await fetchDrive();
