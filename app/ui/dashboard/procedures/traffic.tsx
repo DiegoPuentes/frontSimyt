@@ -154,7 +154,8 @@ export default function TrafficPage() {
             const dataRequest = {
                 peopleId: token,
                 requestDate: new Date().toISOString(),
-                officerId: 1,
+                //Se modifica el officerId, ya que el administrador es el id = 2
+                officerId: 2,
                 isdeleted: false
             };
 
