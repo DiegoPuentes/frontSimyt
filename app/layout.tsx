@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${lusitana.className} antialiased} flex flex-col min-h-screen`}>
+      <body className={`${lusitana.className} antialiased flex flex-col min-h-screen`}>
         {children}
         <footer className="flex items-center justify-center p-6">
         Created by Diego Puentes
