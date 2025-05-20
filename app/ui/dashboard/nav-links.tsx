@@ -6,7 +6,8 @@ import {
   DocumentDuplicateIcon,
   DocumentMagnifyingGlassIcon,
   PlayIcon,
-  ArchiveBoxIcon
+  ArchiveBoxIcon,
+  ChatBubbleBottomCenterTextIcon
 } from '../../../public/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -50,7 +51,8 @@ export default function NavLinks() {
       roles: ['Administrador', 'Usuario']
     },
     { name: 'Game', href: '/dashboard/game', icon: PlayIcon, roles: ['Administrador', 'Usuario'] },
-    { name: 'Help', href: '/dashboard/help', icon: UserGroupIcon, roles: ['Administrador', 'Usuario', 'Invitado'] }
+    { name: 'Help', href: '/dashboard/help', icon: UserGroupIcon, roles: ['Administrador', 'Usuario', 'Invitado'] },
+    { name: 'BOT', href: 'https://conversejs.org/demo/#23acb636-6007-47c9-8ef8-2b7d4044613c', icon: ChatBubbleBottomCenterTextIcon, roles: ['Administrador', 'Usuario', 'Invitado'] }
   ];
 
   const filteredLinks = links.filter(link => link.roles.includes(userRole));
